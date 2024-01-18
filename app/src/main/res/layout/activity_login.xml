@@ -29,6 +29,7 @@
         android:layout_marginTop="25dp"
         />
     <EditText
+        android:id="@+id/usered"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
@@ -37,6 +38,8 @@
         android:gravity="center"
         android:maxLines="1"
         android:maxLength="15"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+        android:inputType="textFilter"
         />
 
     <TextView
@@ -51,6 +54,7 @@
         android:layout_marginTop="25dp"
         />
     <EditText
+        android:id="@+id/passed"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
@@ -59,6 +63,8 @@
         android:gravity="center"
         android:maxLines="1"
         android:maxLength="15"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+        android:inputType="textFilter"
         />
 
     <Button

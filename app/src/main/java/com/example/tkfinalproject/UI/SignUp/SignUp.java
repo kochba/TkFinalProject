@@ -2,12 +2,14 @@ package com.example.tkfinalproject.UI.SignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.tkfinalproject.R;
+import com.example.tkfinalproject.UI.FirstPage.FirstPage;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,8 +27,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         btn.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View v) {
-
+        Intent intent = new Intent(this, FirstPage.class);
+        startActivity(intent);
     }
 }
