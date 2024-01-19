@@ -27,6 +27,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginTop="25dp"
+
         />
     <EditText
         android:id="@+id/usered"
