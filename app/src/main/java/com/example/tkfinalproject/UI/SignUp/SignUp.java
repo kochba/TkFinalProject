@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -16,8 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+
 import com.example.tkfinalproject.R;
+import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
+import com.example.tkfinalproject.UI.Login.login;
 
 import java.util.jar.Attributes;
 
@@ -39,6 +44,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         pass = findViewById(R.id.passowrd);
         eqpass = findViewById(R.id.passowrdeq);
         btn.setOnClickListener(this);
+        sp = getSharedPreferences("MyUserPerfs" , Context.MODE_PRIVATE);
         pass.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -94,7 +100,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        sp = getSharedPreferences("MyUserPerfs" , Context.MODE_PRIVATE);
     }
 
 
@@ -143,14 +148,30 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             adb.create().show();
         }
         else {
-            Un = name.getText().toString();
-            Up = pass.getText().toString();
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putString("UserName",Un);
-            editor.putString("UserName",Up);
-            editor.commit();
-            Intent intent = new Intent(this, FirstPage.class);
-            startActivity(intent);
+            ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+            if (isConnected){
+                User user = new User(name.getText().toString().trim(),pass.getText().toString().trim());
+                Intent intent = new Intent(this, login.class);
+                startActivity(intent);
+            }
+            else {
+                AlertDialog.Builder adb = new AlertDialog.Builder(this);
+                adb.setTitle("יש בעיה חבר!");
+                adb.setMessage("אין אינטרנט חבר אי אפשר להירשם");
+                adb.setCancelable(false);
+                adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                adb.create().show();
+
+            }
+
+
         }
     }
 }
