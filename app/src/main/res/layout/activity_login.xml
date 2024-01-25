@@ -65,7 +65,10 @@
         android:maxLines="1"
         android:maxLength="15"
         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-        android:inputType="textFilter"
+        android:inputType="textPassword"
+        android:drawableRight="@drawable/baseline_visibility_off_24"
+        android:paddingRight="10dp"
+        android:longClickable="false"
         />
 
     <Button
