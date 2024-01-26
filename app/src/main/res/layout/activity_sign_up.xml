@@ -14,12 +14,12 @@
         android:src="@drawable/newlogo"
         android:layout_gravity="center"
         android:layout_marginTop="30sp"
-        />
+        android:contentDescription="TODO" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="שם משתמש"
-        android:textSize="40dp"
+        android:text="@string/firstname"
+        android:textSize="40sp"
         android:textColor="@color/black"
         android:fontFamily="@font/myfont"
         android:layout_gravity="center"
@@ -31,7 +31,7 @@
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:layout_gravity="center"
         android:gravity="center"
         android:maxLines="1"
@@ -49,14 +49,14 @@
         android:gravity="center"
         android:text="סיסמה"
         android:textColor="@color/black"
-        android:textSize="40dp" />
+        android:textSize="40sp" />
 
     <EditText
         android:id="@+id/passowrd"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:layout_gravity="center"
         android:gravity="center"
         android:maxLines="1"
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="אימות סיסמה"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textColor="@color/black"
         android:fontFamily="@font/myfont"
         android:layout_gravity="center"
@@ -83,7 +83,7 @@
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:layout_gravity="center"
         android:gravity="center"
         android:maxLines="1"
