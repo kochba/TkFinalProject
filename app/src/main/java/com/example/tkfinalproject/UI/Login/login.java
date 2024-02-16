@@ -68,18 +68,16 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         //לעשות בדיקת אינטרנט ולבדוק שהנתונים קיימים במערכת
         //ניתן להתחבר אם כבר הייתה כניסה והוא קיים בDb
+        //לעשות בדיקה שהאימייל לא קיים
+
         if (checkBox.isChecked()){
             Un = username.getText().toString().trim();
             Up = userpass.getText().toString().trim();
             SharedPreferences.Editor editor = sp.edit();
             editor.putString("UserName",Un);
-            editor.putString("UserName",Up);
+            editor.putString("UserPass",Up);
             editor.commit();
-            Intent intent = new Intent(this, login.class);
-            startActivity(intent);
 
         }
-        Intent intent = new Intent(this, FirstPage.class);
-        startActivity(intent);
     }
 }
