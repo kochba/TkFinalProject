@@ -26,4 +26,7 @@ public class Repostry {
         }
 
     }
+    public boolean IsExisit(String name,String pass){
+       return myDatabaseHelper.IsExist(name,pass);
+    }
 }

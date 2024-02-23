@@ -1,10 +1,14 @@
 package com.example.tkfinalproject.UI.Login;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -15,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.tkfinalproject.R;
+import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
 import com.example.tkfinalproject.UI.mainactivity.MainActivity;
 
@@ -26,6 +31,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     Boolean Pveq = true;
     SharedPreferences sp;
     String Un,Up;
+    loginModule Module;
+    User user;
+    AlertDialog.Builder adb;
 
 
     @Override
@@ -38,7 +46,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         username = findViewById(R.id.usered);
         userpass = findViewById(R.id.passed);
         btn.setOnClickListener(this);
+        Module = new loginModule(this);
         sp = getSharedPreferences("MyUserPerfs" , Context.MODE_PRIVATE);
+        adb = new AlertDialog.Builder(this);
         userpass.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -69,15 +79,54 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         //לעשות בדיקת אינטרנט ולבדוק שהנתונים קיימים במערכת
         //ניתן להתחבר אם כבר הייתה כניסה והוא קיים בDb
         //לעשות בדיקה שהאימייל לא קיים
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        user = new User(username.getText().toString().trim(),userpass.getText().toString().trim());
+        Intent intent = new Intent(login.this,FirstPage.class);
+        SharedPreferences.Editor editor = sp.edit();
+        if (isConnected){
+            if (Module.Checkuser(user)){
+                if (checkBox.isChecked()){
+                    Un = username.getText().toString().trim();
+                    Up = userpass.getText().toString().trim();
+                    editor.putString("UserName",Un);
+                    editor.putString("UserPass",Up);
+                    editor.commit();
+                    startActivity(intent);
+                }
+                else {
+                    editor.putString("UserName","");
+                    editor.putString("UserPass","");
+                    editor.commit();
+                    startActivity(intent);
+                }
+            }
+            else {
+                adb.setTitle("יש בעיה חבר!");
+                adb.setMessage("שם משתמש או סיסמה לא נכונים");
+                adb.setCancelable(false);
+                adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-        if (checkBox.isChecked()){
-            Un = username.getText().toString().trim();
-            Up = userpass.getText().toString().trim();
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putString("UserName",Un);
-            editor.putString("UserPass",Up);
-            editor.commit();
+                    }
+                });
+                adb.create().show();
 
+            }
+        }
+        else{
+            adb.setTitle("יש בעיה חבר!");
+            adb.setMessage("אין אינטרנט חבר אי אפשר להירשם");
+            adb.setCancelable(false);
+            adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            adb.create().show();
         }
     }
 }
