@@ -40,6 +40,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     SignUpModule signUpModule;
 
     UtilityClass utilityClass;
+    int x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +164,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(this, login.class);
             if (isConnected){
                 User user = new User(name.getText().toString().trim(),pass.getText().toString().trim());
-                int x = signUpModule.NewSignUp(user);
+                x = signUpModule.NewSignUp(user);
                 switch (x){
                     case 0:
                         adb.setTitle("הרשמה הצליחה!");

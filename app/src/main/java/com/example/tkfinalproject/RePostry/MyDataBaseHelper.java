@@ -19,6 +19,8 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_UserName = "User_Name";
     private static final String COLUMN_PassWord = "User_PassWord";
 
+    private String str;
+
     public MyDataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -74,20 +76,38 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
+    private String idByName(String name){
+        String query =  "SELECT " + COLUMN_ID + " FROM " + TABLE_NAME + " WHERE " + COLUMN_UserName + " = '" + name + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(COLUMN_ID);
+        return cursor.getString(columnIndex);
+    }
 
-    public void updateData(String row_id, String title, String author, String pages){
+    public boolean uptadePass(User user){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_UserName, title);
-        cv.put(COLUMN_PassWord, author);
+        cv.put(COLUMN_PassWord, user.getPass());
+        str = idByName(user.getUsername());
 
-        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
-        if(result == -1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-        }
+        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{str});
+        return result != -1;
+    }
 
+
+    public boolean updateData(User user,User current){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_UserName, user.getUsername());
+        cv.put(COLUMN_PassWord, user.getPass());
+        str = idByName(current.getUsername());
+
+        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{str});
+        return result != -1;
     }
 
     public void deleteOneRow(String row_id){

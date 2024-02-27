@@ -3,7 +3,7 @@
     <style name="Base.Theme.TkFinalProject" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
     </style>
-
-
+    <style name="Theme.TkFinalProject" parent="Base.Theme.TkFinalProject" />
 </resources>

@@ -41,6 +41,39 @@ public class Repostry {
 
     }
 
+    public int Updateuser(User user)  {
+        if (!user.getUsername().equals(getCurrentUser().getUsername())){
+            if (!myDatabaseHelper.DoesUserNameExisit(user.getUsername())){
+                if (myDatabaseHelper.updateData(user,getCurrentUser())) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+            else {
+                return 2;
+            }
+        }
+        else {
+            if (myDatabaseHelper.uptadePass(user)) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+
+//        if (!myDatabaseHelper.DoesUserNameExisit(user.getUsername())){
+//            if (myDatabaseHelper.updateData(user)) {
+//                return 0;
+//            } else {
+//                return 1;
+//            }
+//        }
+//        else {
+//            return 2;
+//        }
+    }
+
     public boolean IsExisit(String name,String pass){
         if (myDatabaseHelper.IsExist(name,pass)){
             setCurrentUser(new User(name,pass));

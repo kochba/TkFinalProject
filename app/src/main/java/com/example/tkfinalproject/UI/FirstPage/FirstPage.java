@@ -2,15 +2,17 @@ package com.example.tkfinalproject.UI.FirstPage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.tkfinalproject.R;
+import com.example.tkfinalproject.UI.UpdateUser.UpdateUser;
 
 public class FirstPage extends AppCompatActivity implements View.OnClickListener {
     ImageView imageView;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,7 @@ public class FirstPage extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "AAA", Toast.LENGTH_SHORT).show();
+        intent = new Intent(FirstPage.this, UpdateUser.class);
+        startActivity(intent);
     }
 }

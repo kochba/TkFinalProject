@@ -2,4 +2,5 @@
     <string name="app_name">TkFinalProject</string>
     <string name="login">התחבר</string>
     <string name="firstname">שם משתמש</string>
+    <string name="update">עדכן נתונים</string>
 </resources>
