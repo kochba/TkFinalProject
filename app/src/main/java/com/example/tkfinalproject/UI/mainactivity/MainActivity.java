@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);closeContextMenu();
         mainActivityModule = new MainActivityModule(this);
         intent = new Intent(MainActivity.this, FirstPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         sp = getApplicationContext().getSharedPreferences("MyUserPerfs", Context.MODE_PRIVATE);
         user = new User(sp.getString("UserName",""),sp.getString("UserPass",""));
         ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);

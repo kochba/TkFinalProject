@@ -84,6 +84,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         user = new User(username.getText().toString().trim(),userpass.getText().toString().trim());
         Intent intent = new Intent(login.this,FirstPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         SharedPreferences.Editor editor = sp.edit();
         if (isConnected){
             if (Module.Checkuser(user)){

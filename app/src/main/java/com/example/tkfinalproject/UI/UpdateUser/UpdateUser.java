@@ -40,6 +40,8 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
         Update.setOnClickListener(this);
         moudle = new UpdateUserMoudle(this);
         moudle.showdata(editTextName,editTextPass);
+        intent = new Intent(UpdateUser.this, FirstPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         sp = getSharedPreferences("MyUserPerfs" , Context.MODE_PRIVATE);
     }
 
@@ -92,7 +94,7 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
                         editor.putString("UserPass",editTextPass.getText().toString().trim());
                         editor.commit();
                     }
-                    showalert("עדכון פרטים הצליח!","אתה יכול להמשיך להשתמש באפלייקצייה",new Intent(UpdateUser.this, FirstPage.class));
+                    showalert("עדכון פרטים הצליח!","אתה יכול להמשיך להשתמש באפלייקצייה",intent);
                     break;
                 case 1:
                     showalert("העדכון נכשל!","נסה שוב");

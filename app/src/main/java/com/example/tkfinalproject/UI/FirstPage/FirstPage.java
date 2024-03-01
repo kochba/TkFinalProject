@@ -1,5 +1,6 @@
 package com.example.tkfinalproject.UI.FirstPage;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import com.example.tkfinalproject.UI.UpdateUser.UpdateUser;
 public class FirstPage extends AppCompatActivity implements View.OnClickListener {
     ImageView imageView;
     Intent intent;
+    OnBackPressedCallback callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
