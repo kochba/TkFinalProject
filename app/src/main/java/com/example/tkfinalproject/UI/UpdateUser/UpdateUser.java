@@ -105,7 +105,6 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
         }
         else {
             showalert("יש בעיה חבר!","אין אינטרנט חבר אי אפשר לעדכן נתונים");
-//
         }
 
     }

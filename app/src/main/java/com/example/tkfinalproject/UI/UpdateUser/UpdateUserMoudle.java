@@ -9,7 +9,7 @@ import com.example.tkfinalproject.RePostry.User;
 
 public class UpdateUserMoudle {
     int x;
-    Repostry repostry;
+    private Repostry repostry;
     User user;
     public UpdateUserMoudle(Context context)
     {

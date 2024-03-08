@@ -1,5 +1,6 @@
 package com.example.tkfinalproject.UI.LogOut;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -18,7 +19,7 @@ import com.example.tkfinalproject.R;
  * Use the {@link logout#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class logout extends Fragment implements View.OnClickListener {
+public class logout extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +28,7 @@ public class logout extends Fragment implements View.OnClickListener {
 
     Button btn;
 
-    AlertDialog adb;
+    logoutModule module;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,39 +65,41 @@ public class logout extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void showalert(String head,String body){
-//        adb = new AlertDialog.Builder(getContext());
-//        adb.setTitle(head);
-//        adb.setMessage(body);
-//        adb.setCancelable(false);
-//
-////        adb.set("הבנתי", new DialogInterface.OnClickListener() {
-////            @Override
-////            public void onClick(DialogInterface dialog, int which) {
-////
-////            }
-////        });
-//        adb.create().show();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_logout, container, false);
        btn = view.findViewById(R.id.logout);
-
-
-
-
-
-
-
-
+       module = new logoutModule(getContext());
+       btn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               AlertDialog.Builder adb = new AlertDialog.Builder(getContext());
+               adb.setTitle("התנתקות");
+               adb.setMessage("האם את בטוח שאתה רוצה להתנתק");
+               adb.setCancelable(false);
+               adb.setPositiveButton("כן", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       //makeLogout();
+                   }
+               });
+               adb.setPositiveButton("לא", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       dialog.cancel();
+                   }
+               });
+               adb.create().show();
+           }
+       });
        return view;
     }
 
-    @Override
-    public void onClick(View v) {
-    }
+    //private Void makeLogout(){
+
+      //  module.userlogout();
+
+    //}
 }
