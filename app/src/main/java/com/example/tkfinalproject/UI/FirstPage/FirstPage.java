@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.tkfinalproject.R;
+import com.example.tkfinalproject.UI.LogOut.logout;
 import com.example.tkfinalproject.UI.UpdateUser.UpdateUser;
 
 public class FirstPage extends AppCompatActivity implements View.OnClickListener {
@@ -26,7 +27,10 @@ public class FirstPage extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        intent = new Intent(FirstPage.this, UpdateUser.class);
-        startActivity(intent);
+        logout log = new logout();
+        getSupportFragmentManager().beginTransaction().add(R.id.logoutlayout,log,null).commit();
+
+//        intent = new Intent(FirstPage.this, logout.class);
+//        startActivity(intent);
     }
 }

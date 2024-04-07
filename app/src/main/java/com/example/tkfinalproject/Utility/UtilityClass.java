@@ -11,10 +11,10 @@ public class UtilityClass {
         Mycontext = context;
     }
     //לשים לב
-//    public Boolean isConected(){
-//        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-//        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-//        return isConnected;
-//    }
+    public Boolean isConected(){
+        ConnectivityManager cm = (ConnectivityManager)Mycontext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
 }

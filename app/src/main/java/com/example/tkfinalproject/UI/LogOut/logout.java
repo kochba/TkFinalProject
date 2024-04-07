@@ -2,6 +2,8 @@ package com.example.tkfinalproject.UI.LogOut;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.tkfinalproject.R;
+import com.example.tkfinalproject.Utility.UtilityClass;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +32,7 @@ public class logout extends Fragment {
     Button btn;
 
     logoutModule module;
+    UtilityClass utilityClass;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -82,7 +86,7 @@ public class logout extends Fragment {
                adb.setPositiveButton("כן", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialog, int which) {
-                       //makeLogout();
+                       module.makeLogout();
                    }
                });
                adb.setPositiveButton("לא", new DialogInterface.OnClickListener() {
@@ -96,10 +100,4 @@ public class logout extends Fragment {
        });
        return view;
     }
-
-    //private Void makeLogout(){
-
-      //  module.userlogout();
-
-    //}
 }

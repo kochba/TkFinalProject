@@ -7,6 +7,7 @@
     tools:context=".UI.Login.login"
     android:orientation="vertical"
     android:background="#aaa"
+    android:id="@+id/logoutlayout"
     >
 
     <ImageView
