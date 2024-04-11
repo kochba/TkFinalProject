@@ -4,12 +4,16 @@ import android.content.Context;
 
 public class Repostry {
     MyDataBaseHelper myDatabaseHelper;
+    MyFireBaseHelper fireBaseHelper;
     Context Mycontext;
     private static User currentUser;
     public Repostry(Context context)
     {
         myDatabaseHelper = new MyDataBaseHelper(context);
+        fireBaseHelper = new MyFireBaseHelper(context);
         Mycontext = context;
+        //database = FirebaseDatabase.getInstance();
+        //reference = database.getReference("Users");
     }
 
 //    public Repostry(Context context , User myuser)
@@ -28,8 +32,10 @@ public class Repostry {
     }
 
     public int RNewSignUp(User user)  {
-        if (!myDatabaseHelper.DoesUserNameExisit(user.getUsername())){
+       // if (!myDatabaseHelper.DoesUserNameExisit(user.getUsername())){
+        if (!doesUserNameExisit(user.getUsername())){
             if (myDatabaseHelper.AddUser(user)) {
+                fireBaseHelper.addUser(user);
                 return 0;
             } else {
                 return 1;
@@ -40,11 +46,10 @@ public class Repostry {
         }
 
     }
-
     public int Updateuser(User user)  {
         if (!user.getUsername().equals(getCurrentUser().getUsername())){
-            if (!myDatabaseHelper.DoesUserNameExisit(user.getUsername())){
-                if (myDatabaseHelper.updateData(user,getCurrentUser())) {
+            if (!doesUserNameExisit(user.getUsername())){
+                if (updatedata(user,1)) {
                     return 0;
                 } else {
                     return 1;
@@ -55,7 +60,7 @@ public class Repostry {
             }
         }
         else {
-            if (myDatabaseHelper.uptadePass(user)) {
+            if (updatedata(user,2)) {
                 return 0;
             } else {
                 return 1;
@@ -73,9 +78,34 @@ public class Repostry {
 //            return 2;
 //        }
     }
+    private boolean updatedata(User user, int code){
+        if (code == 1){
+            if (myDatabaseHelper.updateData(user,currentUser)){
+                fireBaseHelper.update(user);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            if (myDatabaseHelper.uptadePass(user)) {
+                fireBaseHelper.update(user);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    private boolean doesUserNameExisit(String userName){
+        return !fireBaseHelper.userNameExist(userName);
+
+    }
 
     public boolean IsExisit(String name,String pass){
-        if (myDatabaseHelper.IsExist(name,pass)){
+//        Boolean X = fireBaseHelper.checkUserExistence(new User(name,pass));
+//        Boolean Y = myDatabaseHelper.IsExist(name,pass);
+        if (fireBaseHelper.checkUserExistence(new User(name,pass))){
             setCurrentUser(new User(name,pass));
             return true;
         }

@@ -31,14 +31,14 @@
             android:orientation="vertical"
             android:layout_marginLeft="140dp"
             >
+
             <ImageView
                 android:id="@+id/userphoto"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:src="@drawable/usersphoto"
-                android:layout_margin="30dp"
                 android:layout_gravity="center"
-                />
+                android:layout_margin="30dp"
+                android:src="@drawable/usersphoto" />
         </LinearLayout>
     </LinearLayout>
     <ImageView
@@ -55,7 +55,7 @@
         android:layout_marginTop="60sp"
         />
     <Button
-        android:id="@+id/approve"
+        android:id="@+id/newphone"
         android:layout_width="300dp"
         android:layout_height="75dp"
         android:layout_gravity="center"

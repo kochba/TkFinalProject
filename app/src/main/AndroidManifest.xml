@@ -15,19 +15,28 @@
         android:theme="@style/Theme.TkFinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".UI.LogOut.LogOut1"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
             android:name=".UI.UpdateUser.UpdateUser"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UI.FirstPage.FirstPage"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UI.SignUp.SignUp"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UI.Login.login"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UI.mainactivity.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

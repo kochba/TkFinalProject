@@ -162,6 +162,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
             AlertDialog.Builder adb = new AlertDialog.Builder(this);
             Intent intent = new Intent(this, login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             if (isConnected){
                 User user = new User(name.getText().toString().trim(),pass.getText().toString().trim());
                 x = signUpModule.NewSignUp(user);
