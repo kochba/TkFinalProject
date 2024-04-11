@@ -61,7 +61,7 @@ public class MyFireBaseHelper {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
+                    Log.e("firebase", "Error getting dat", task.getException());
                 }
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
