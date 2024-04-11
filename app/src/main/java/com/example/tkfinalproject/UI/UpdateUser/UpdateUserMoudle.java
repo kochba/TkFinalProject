@@ -22,12 +22,13 @@ public class UpdateUserMoudle {
     }
 
     public int updateUser(EditText editTextName, EditText editTextPass){
-        user = new User(editTextName.getText().toString().trim(),editTextPass.getText().toString().trim());
-        x = repostry.Updateuser(user);
-        if (x == 0){
-            repostry.setCurrentUser(user);
-            return 0;
-        }
-        return x;
+//        user = new User(editTextName.getText().toString().trim(),editTextPass.getText().toString().trim());
+//        x = repostry.Updateuser(user);
+//        if (x == 0){
+//            repostry.setCurrentUser(user);
+//            return 0;
+//        }
+//        return x;
+        return 1;
     }
 }

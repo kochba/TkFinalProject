@@ -13,8 +13,11 @@ public class MainActivityModule {
     }
 
 
-    public boolean StartLogin(User user){
-        return repostry.IsExisit(user.getUsername(),user.getPass());
+    public void StartLogin(User user, com.example.tkfinalproject.RePostry.MyFireBaseHelper.checkUser checkUser){
+        repostry.IsExisit(user.getUsername(),user.getPass(),checkUser);
+    }
+    public void setUser(User user){
+        repostry.setCurrentUser(user);
     }
 
 }

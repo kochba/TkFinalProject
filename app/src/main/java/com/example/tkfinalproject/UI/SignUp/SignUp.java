@@ -25,6 +25,7 @@ import com.example.tkfinalproject.RePostry.MyDataBaseHelper;
 import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
 import com.example.tkfinalproject.UI.Login.login;
+import com.example.tkfinalproject.Utility.IonComplete;
 import com.example.tkfinalproject.Utility.UtilityClass;
 
 import java.util.jar.Attributes;
@@ -165,46 +166,50 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             if (isConnected){
                 User user = new User(name.getText().toString().trim(),pass.getText().toString().trim());
-                x = signUpModule.NewSignUp(user);
-                switch (x){
-                    case 0:
-                        adb.setTitle("הרשמה הצליחה!");
-                        adb.setMessage("אתה יכול להיכנס לאפליקצייה");
-                        adb.setCancelable(false);
-                        adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                startActivity(intent);
-                            }
-                        });
-                        adb.create().show();
-                        break;
-                    case 1:
-                        adb.setTitle("הרשמה נכשלה!");
-                        adb.setMessage("נסה שוב");
-                        adb.setCancelable(false);
-                        adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                signUpModule.NewSignUp(user, new IonComplete.IonCompleteInt() {
+                    @Override
+                    public void onCompleteInt(int flag) {
+                        switch (flag){
+                            case 0:
+                                adb.setTitle("הרשמה הצליחה!");
+                                adb.setMessage("אתה יכול להיכנס לאפליקצייה");
+                                adb.setCancelable(false);
+                                adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(intent);
+                                    }
+                                });
+                                adb.create().show();
+                                break;
+                            case 1:
+                                adb.setTitle("הרשמה נכשלה!");
+                                adb.setMessage("נסה שוב");
+                                adb.setCancelable(false);
+                                adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        });
-                        adb.create().show();
-                        break;
-                    case 2:
-                        adb.setTitle("יש בעיה חבר!");
-                        adb.setMessage("השם משתמש כבר קיים במערכת");
-                        adb.setCancelable(false);
-                        adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+                                adb.create().show();
+                                break;
+                            case 2:
+                                adb.setTitle("יש בעיה חבר!");
+                                adb.setMessage("השם משתמש כבר קיים במערכת");
+                                adb.setCancelable(false);
+                                adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        });
-                        adb.create().show();
-                        break;
-                }
+                                    }
+                                });
+                                adb.create().show();
+                                break;
+                        }
 
+                    }
+                });
             }
             else {
                 adb.setTitle("יש בעיה חבר!");

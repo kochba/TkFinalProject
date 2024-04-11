@@ -11,7 +11,15 @@ public class loginModule {
         repostry = new Repostry(context);
     }
 
-    public boolean Checkuser(User user){
-       return repostry.IsExisit(user.getUsername(),user.getPass());
+    public void UserExsist(User user, com.example.tkfinalproject.RePostry.MyFireBaseHelper.checkUser checkUser){
+        repostry.IsExisit(user.getUsername(),user.getPass(),checkUser);
     }
+    public void setUser(User user){
+        repostry.setCurrentUser(user);
+    }
+
+    public void doesUserNameExisit(User user, com.example.tkfinalproject.RePostry.MyFireBaseHelper.checkUser checkUser){
+        repostry.doesUserNameExisit(user.getUsername(), checkUser);
+    }
+
 }

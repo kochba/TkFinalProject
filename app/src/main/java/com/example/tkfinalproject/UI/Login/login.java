@@ -1,8 +1,5 @@
 package com.example.tkfinalproject.UI.Login;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,10 +15,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.tkfinalproject.R;
 import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
-import com.example.tkfinalproject.UI.mainactivity.MainActivity;
 
 public class login extends AppCompatActivity implements View.OnClickListener {
 
@@ -87,35 +86,42 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         SharedPreferences.Editor editor = sp.edit();
         if (isConnected){
-            if (Module.Checkuser(user)){
-                if (checkBox.isChecked()){
-                    Un = username.getText().toString().trim();
-                    Up = userpass.getText().toString().trim();
-                    editor.putString("UserName",Un);
-                    editor.putString("UserPass",Up);
-                    editor.commit();
-                    startActivity(intent);
-                }
-                else {
-                    editor.putString("UserName","");
-                    editor.putString("UserPass","");
-                    editor.commit();
-                    startActivity(intent);
-                }
-            }
-            else {
-                adb.setTitle("יש בעיה חבר!");
-                adb.setMessage("שם משתמש או סיסמה לא נכונים");
-                adb.setCancelable(false);
-                adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                Module.UserExsist(user, new com.example.tkfinalproject.RePostry.MyFireBaseHelper.checkUser() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onCheckedUser(boolean flag) {
+                        if(flag)
+                        {
+                            Module.setUser(user);
+                            if (checkBox.isChecked()){
+                                Un = username.getText().toString().trim();
+                                Up = userpass.getText().toString().trim();
+                                editor.putString("UserName",Un);
+                                editor.putString("UserPass",Up);
+                                editor.commit();
+                                startActivity(intent);
+                            }
+                            else {
+                                editor.putString("UserName","");
+                                editor.putString("UserPass","");
+                                editor.commit();
+                                startActivity(intent);
+                            }
+                        }
+                        else {
+                            adb.setTitle("יש בעיה חבר!");
+                            adb.setMessage("שם משתמש או סיסמה לא נכונים");
+                            adb.setCancelable(false);
+                            adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
+                                }
+                            });
+                            adb.create().show();
+
+                        }
                     }
                 });
-                adb.create().show();
-
-            }
         }
         else{
             adb.setTitle("יש בעיה חבר!");

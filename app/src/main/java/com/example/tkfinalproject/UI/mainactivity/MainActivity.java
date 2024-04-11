@@ -36,8 +36,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        if (isConnected && mainActivityModule.StartLogin(user)){
-            startActivity(intent);
+        if (isConnected){
+            mainActivityModule.StartLogin(user, new com.example.tkfinalproject.RePostry.MyFireBaseHelper.checkUser() {
+                @Override
+                public void onCheckedUser(boolean flag) {
+                    if (flag){
+                        mainActivityModule.setUser(user);
+                        startActivity(intent);
+                    }
+                }
+            });
         }
         log = findViewById(R.id.login);
         sin = findViewById(R.id.signup);

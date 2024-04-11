@@ -11,6 +11,7 @@ import com.example.tkfinalproject.RePostry.MyDataBaseHelper;
 import com.example.tkfinalproject.RePostry.Repostry;
 import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.Login.login;
+import com.example.tkfinalproject.Utility.IonComplete;
 
 
 public class SignUpModule {
@@ -20,8 +21,8 @@ public class SignUpModule {
     }
 
 
-    public int NewSignUp(User user)  {
-        return repostry.RNewSignUp(user);
+    public void NewSignUp(User user, IonComplete.IonCompleteInt ionCompleteInt)  {
+        repostry.RNewSignUp(user,ionCompleteInt);
     }
 
 }
