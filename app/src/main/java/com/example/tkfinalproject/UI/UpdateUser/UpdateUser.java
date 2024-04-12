@@ -18,6 +18,7 @@ import com.example.tkfinalproject.R;
 import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
 import com.example.tkfinalproject.UI.Login.login;
+import com.example.tkfinalproject.Utility.IonComplete;
 
 public class UpdateUser extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,7 +28,6 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
     UpdateUserMoudle moudle;
     SharedPreferences sp;
     AlertDialog.Builder adb;
-    int x;
     User user;
 
     @Override
@@ -85,23 +85,28 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
             showalert("יש בעיה חבר!","סיסמה קצרה מ6");
         }
         else if (isConnected){
-            x = moudle.updateUser(editTextName,editTextPass);
             user = new User(sp.getString("UserName",""),sp.getString("UserPass",""));
-            switch (x){
-                case 0:
-                    if (user.getUsername() != ""){
-                        editor.putString("UserName",editTextName.getText().toString().trim());
-                        editor.putString("UserPass",editTextPass.getText().toString().trim());
-                        editor.commit();
+            moudle.updateUser(editTextName, editTextPass, new IonComplete.IonCompleteInt() {
+                @Override
+                public void onCompleteInt(int flag) {
+                    switch (flag){
+                        case 0:
+                            if (user.getUsername() != ""){
+                                editor.putString("UserName",editTextName.getText().toString().trim());
+                                editor.putString("UserPass",editTextPass.getText().toString().trim());
+                                editor.commit();
+                            }
+                            moudle.setUser(editTextName,editTextPass);
+                            showalert("עדכון פרטים הצליח!","אתה יכול להמשיך להשתמש באפלייקצייה",intent);
+                            break;
+                        case 1:
+                            showalert("העדכון נכשל!","נסה שוב");
+                            break;
+                        case 2:
+                            showalert("יש בעיה חבר!","השם משתמש החדש כבר קיים במערכת");
                     }
-                    showalert("עדכון פרטים הצליח!","אתה יכול להמשיך להשתמש באפלייקצייה",intent);
-                    break;
-                case 1:
-                    showalert("העדכון נכשל!","נסה שוב");
-                    break;
-                case 2:
-                    showalert("יש בעיה חבר!","השם משתמש החדש כבר קיים במערכת");
-            }
+                }
+            });
         }
         else {
             showalert("יש בעיה חבר!","אין אינטרנט חבר אי אפשר לעדכן נתונים");

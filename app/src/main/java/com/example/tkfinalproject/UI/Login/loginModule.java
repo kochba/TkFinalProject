@@ -18,8 +18,8 @@ public class loginModule {
         repostry.setCurrentUser(user);
     }
 
-    public void doesUserNameExisit(User user, com.example.tkfinalproject.RePostry.MyFireBaseHelper.checkUser checkUser){
-        repostry.doesUserNameExisit(user.getUsername(), checkUser);
-    }
+//    public void doesUserNameExisit(User user, com.example.tkfinalproject.RePostry.MyFireBaseHelper.checkUser checkUser){
+//        repostry.doesUserNameExisit(user.getUsername(), checkUser);
+//    }
 
 }

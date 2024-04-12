@@ -27,6 +27,7 @@ public class MyFireBaseHelper {
     FirebaseDatabase database;
     DatabaseReference reference;
     Context myContext;
+    DataSnapshot  dataSnapshot;
 
     public MyFireBaseHelper(Context context) {
         database = FirebaseDatabase.getInstance();
@@ -51,7 +52,8 @@ public class MyFireBaseHelper {
         reference.child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()){
+                dataSnapshot = task.getResult();
+                if (task.isSuccessful() && String.valueOf(dataSnapshot.child("username").getValue()).equals(username)){
                     checkUser.onCheckedUser(true);
                 }
                 else {
@@ -61,12 +63,12 @@ public class MyFireBaseHelper {
         });
     }
     public void userExsits(User user,checkUser checkUser){
-        reference.child(user.getUsername()).child(user.getUsername()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        reference.child(user.getUsername()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                User user1 = null;
-                if (task.getResult().exists() && task.isSuccessful()){
-                    if (task.getResult().child("pass").getValue(String.class).equals(user.getPass())){
+                dataSnapshot = task.getResult();
+                if (task.isSuccessful() && String.valueOf(dataSnapshot.child("username").getValue()).equals(user.getUsername())){
+                    if (String.valueOf(dataSnapshot.child("pass").getValue()).equals(user.getPass())){
                         checkUser.onCheckedUser(true);
                     }
                     else {
