@@ -2,7 +2,7 @@
     <string name="app_name">TkFinalProject</string>
     <string name="login">התחבר</string>
     <string name="firstname">שם משתמש</string>
-    <string name="update">עדכן נתונים</string>
+    <string name="update">עדכן סיסמה</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">התנתק</string>

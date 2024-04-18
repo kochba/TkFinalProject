@@ -27,7 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);closeContextMenu();
+        setContentView(R.layout.activity_main);
+        closeContextMenu();
+        log = findViewById(R.id.login);
+        sin = findViewById(R.id.signup);
         mainActivityModule = new MainActivityModule(this);
         intent = new Intent(MainActivity.this, FirstPage.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -44,13 +47,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mainActivityModule.setUser(user);
                         startActivity(intent);
                     }
+                    else {
+                        setClickTrue();
+                    }
                 }
             });
         }
-        log = findViewById(R.id.login);
-        sin = findViewById(R.id.signup);
+        else {
+            setClickTrue();
+        }
         log.setOnClickListener(this);
         sin.setOnClickListener(this);
+    }
+    private void setClickTrue(){
+        log.setEnabled(true);
+        sin.setEnabled(true);
     }
 
     @Override

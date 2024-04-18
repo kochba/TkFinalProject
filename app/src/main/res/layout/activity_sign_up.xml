@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.SignUp.SignUp"
-    android:orientation="vertical"
     android:background="#aaa"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layoutDirection="ltr"
+        >
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
@@ -28,6 +33,7 @@
         />
     <EditText
         android:id="@+id/name"
+        android:hint="לפחות 8 תווים"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
@@ -52,6 +58,7 @@
         android:textSize="40sp" />
 
     <EditText
+        android:hint="לפחות 6 תווים"
         android:id="@+id/passowrd"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
@@ -100,11 +107,11 @@
         android:layout_height="75dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_margin="50dp"
         android:background="@drawable/button"
         android:text="הירשם"
         android:textSize="35sp"
         android:fontFamily="@font/myfont"
         />
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

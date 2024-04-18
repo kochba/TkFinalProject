@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.tkfinalproject.Utility.IonComplete;
 import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -79,6 +80,24 @@ public class MyFireBaseHelper {
                     checkUser.onCheckedUser(false);
                 }
 
+            }
+        });
+    }
+    public void getUserByName(String username, IonComplete.IonCompleteUser user){
+        reference.child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                dataSnapshot = task.getResult();
+                if (task.isSuccessful()){
+                    userNameExsIts(username, new checkUser() {
+                        @Override
+                        public void onCheckedUser(boolean flag) {
+                            if(flag){
+                                user.onCompleteUser(new User(String.valueOf(dataSnapshot.child("username").getValue()),String.valueOf(dataSnapshot.child("pass").getValue())));
+                            }
+                        }
+                    });
+                }
             }
         });
     }

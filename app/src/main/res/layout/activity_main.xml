@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".UI.mainactivity.MainActivity"
     android:orientation="vertical"
+    android:layoutDirection="ltr"
     android:background="#aaa">
 
     <ImageView
@@ -27,6 +28,7 @@
         android:text="התחבר"
         android:textSize="35sp"
         android:fontFamily="@font/myfont"
+        android:enabled="false"
         />
 
     <Button
@@ -40,6 +42,7 @@
         android:text="הירשם"
         android:textSize="35sp"
         android:fontFamily="@font/myfont"
+        android:enabled="false"
         />
 
 

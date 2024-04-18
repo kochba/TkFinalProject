@@ -92,6 +92,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                         if(flag)
                         {
                             Module.setUser(user);
+                            Module.addUser(user);
                             if (checkBox.isChecked()){
                                 Un = username.getText().toString().trim();
                                 Up = userpass.getText().toString().trim();
@@ -125,7 +126,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         }
         else{
             adb.setTitle("יש בעיה חבר!");
-            adb.setMessage("אין אינטרנט חבר אי אפשר להירשם");
+            adb.setMessage("אין אינטרנט חבר אי אפשר להתחבר");
             adb.setCancelable(false);
             adb.setPositiveButton("הבנתי", new DialogInterface.OnClickListener() {
                 @Override

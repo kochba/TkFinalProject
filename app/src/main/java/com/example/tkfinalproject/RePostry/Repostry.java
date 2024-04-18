@@ -17,6 +17,17 @@ public class Repostry {
         //database = FirebaseDatabase.getInstance();
         //reference = database.getReference("Users");
     }
+    public void setCurrentData(IonComplete ionComplete){
+        if (currentUser != null){
+            fireBaseHelper.getUserByName(currentUser.getUsername(), new IonComplete.IonCompleteUser() {
+                @Override
+                public void onCompleteUser(User user) {
+                    setCurrentUser(user);
+                    ionComplete.onCompleteBool(true);
+                }
+            });
+        }
+    }
 
 //    public Repostry(Context context , User myuser)
 //    {
@@ -145,5 +156,14 @@ public class Repostry {
 //        else {
 //            return false;
 //        }
+    }
+
+    public boolean addDbUser(User user){
+        if (!myDatabaseHelper.DoesUserNameExisit(user.getUsername())){
+            return myDatabaseHelper.AddUser(user);
+        }
+        else {
+            return true;
+        }
     }
 }

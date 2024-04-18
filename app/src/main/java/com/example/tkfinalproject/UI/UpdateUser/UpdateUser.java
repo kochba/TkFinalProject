@@ -38,11 +38,22 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
         editTextPass = findViewById(R.id.passup);
         Update = findViewById(R.id.uptade);
         Update.setOnClickListener(this);
-        moudle = new UpdateUserMoudle(this);
-        moudle.showdata(editTextName,editTextPass);
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if (isConnected){
+            moudle = new UpdateUserMoudle(this);
+            moudle.showdata(editTextName,editTextPass,Update);
+        }
+        else {
+            showalert("יש בעיה חבר!","אין אינטרנט חבר אי אפשר לעדכן סיסמה",new Intent(this,FirstPage.class));
+        }
         intent = new Intent(UpdateUser.this, FirstPage.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         sp = getSharedPreferences("MyUserPerfs" , Context.MODE_PRIVATE);
+    }
+    public void setClickTrue(){
+        Update.setClickable(true);
     }
 
     private void showalert(String head,String body){
@@ -97,7 +108,7 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
                                 editor.commit();
                             }
                             moudle.setUser(editTextName,editTextPass);
-                            showalert("עדכון פרטים הצליח!","אתה יכול להמשיך להשתמש באפלייקצייה",intent);
+                            showalert("עדכון סיסמה הצליח!","אתה יכול להמשיך להשתמש באפלייקצייה",intent);
                             break;
                         case 1:
                             showalert("העדכון נכשל!","נסה שוב");
@@ -109,7 +120,7 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
             });
         }
         else {
-            showalert("יש בעיה חבר!","אין אינטרנט חבר אי אפשר לעדכן נתונים");
+            showalert("יש בעיה חבר!","אין אינטרנט חבר אי אפשר לעדכן סיסמה");
         }
 
     }
