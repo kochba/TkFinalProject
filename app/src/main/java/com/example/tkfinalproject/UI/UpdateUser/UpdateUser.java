@@ -85,6 +85,7 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        Update.setEnabled(false);
         ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
@@ -122,6 +123,6 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
         else {
             showalert("יש בעיה חבר!","אין אינטרנט חבר אי אפשר לעדכן סיסמה");
         }
-
+        Update.setEnabled(true);
     }
 }

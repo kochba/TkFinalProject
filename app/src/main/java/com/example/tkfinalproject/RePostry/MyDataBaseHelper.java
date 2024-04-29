@@ -8,9 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 
+import com.example.tkfinalproject.Utility.UtilityClass;
+
 public class MyDataBaseHelper extends SQLiteOpenHelper {
 
     private Context context;
+    UtilityClass utilityClass;
     private static final String DATABASE_NAME = "usersData.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -24,125 +27,122 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public MyDataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+        utilityClass = new UtilityClass(context);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME +
-                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_UserName + " TEXT, " +
-                COLUMN_PassWord + " TEXT);";
-        db.execSQL(query);
+        try {
+            String query = "CREATE TABLE " + TABLE_NAME +
+                    " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_UserName + " TEXT, " +
+                    COLUMN_PassWord + " TEXT);";
+            db.execSQL(query);
+        } catch (Exception e){
+            utilityClass.showAlertExp();
+        }
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(db);
+        try {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+            onCreate(db);
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
+        }
     }
 
     public boolean AddUser(User user){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_UserName, user.getUsername());
-        cv.put(COLUMN_PassWord, user.getPass());
-        long result = db.insert(TABLE_NAME,null, cv);
-        if(result == -1){
+            cv.put(COLUMN_UserName, user.getUsername());
+            cv.put(COLUMN_PassWord, user.getPass());
+            long result = db.insert(TABLE_NAME, null, cv);
+            return result != -1;
+        } catch (Exception e) {
+                utilityClass.showAlertExp();
             return false;
-        }else {
-            return true;
         }
     }
 
-    public Cursor readAllData(){
-        String query = "SELECT * FROM " + TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
-        }
-        return cursor;
-    }
-
-    public int getAmount(){
-        String query = "SELECT * FROM " + TABLE_NAME;
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
-        }
-        return cursor.getCount();
-    }
-
-    private String idByName(String name){
-        String query =  "SELECT " + COLUMN_ID + " FROM " + TABLE_NAME + " WHERE " + COLUMN_UserName + " = '" + name + "'";
+    private String idByName(String name) {
+        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_NAME + " WHERE " + COLUMN_UserName + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
+        String id = null;
+
+        try {
+            if (db != null) {
+                cursor = db.rawQuery(query, new String[]{name});
+                if (cursor.moveToFirst()) {
+                    int columnIndex = cursor.getColumnIndex(COLUMN_ID);
+                    id = cursor.getString(columnIndex);
+                }
+            }
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(COLUMN_ID);
-        return cursor.getString(columnIndex);
+
+        return id;
     }
 
-    public boolean uptadePass(User user){
+    public boolean uptadePass(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_PassWord, user.getPass());
-        str = idByName(user.getUsername());
+        String str = idByName(user.getUsername());
 
-        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{str});
-        return result != -1;
+        try {
+            if (str != null) {
+                long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{str});
+                return result != -1;
+            }
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
+        }
+
+        return false;
     }
 
-
-    public boolean updateData(User user,User current){
+    public void removeUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_UserName, user.getUsername());
-        cv.put(COLUMN_PassWord, user.getPass());
-        str = idByName(current.getUsername());
+        String id = idByName(user.getUsername());
 
-        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{str});
-        return result != -1;
-    }
-
-    public void deleteOneRow(String row_id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
-        if(result == -1){
-            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+        try {
+            if (id != null) {
+                db.delete(TABLE_NAME, "_id=?", new String[]{id});
+            }
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
         }
     }
 
-    public void deleteAllData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME);
-    }
-
-    public boolean DoesUserNameExisit(String userName){
-        String query =  "SELECT " + COLUMN_UserName + " FROM " + TABLE_NAME + " WHERE " + COLUMN_UserName + " = '" + userName + "'";
+    public boolean DoesUserNameExisit(String userName) {
+        String query = "SELECT " + COLUMN_UserName + " FROM " + TABLE_NAME + " WHERE " + COLUMN_UserName + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
-        }
-            return cursor.getCount() > 0;
-    }
 
-    public boolean IsExist(String userName,String pass){
-        String query = "SELECT " + COLUMN_UserName + " FROM " + TABLE_NAME + " WHERE " + COLUMN_UserName + " = '" + userName + "' AND " + COLUMN_PassWord + " = '" + pass + "'";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
+        try {
+            if (db != null) {
+                cursor = db.rawQuery(query, new String[]{userName});
+                return cursor.getCount() > 0;
+            }
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
-        return cursor.getCount() == 1;
+
+        return false;
     }
 
 

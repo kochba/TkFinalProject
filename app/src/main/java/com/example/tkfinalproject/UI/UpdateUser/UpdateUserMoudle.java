@@ -45,7 +45,7 @@ public class UpdateUserMoudle {
 
     public void updateUser(EditText editTextName, EditText editTextPass, IonComplete.IonCompleteInt ionCompleteInt){
         user = new User(editTextName.getText().toString().trim(),editTextPass.getText().toString().trim());
-        repostry.Updateuser(user,ionCompleteInt);
+        repostry.updatedata(user,ionCompleteInt);
 //        x = repostry.Updateuser(user);
 //        if (x == 0){
 //            repostry.setCurrentUser(user);

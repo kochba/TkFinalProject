@@ -8,9 +8,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.tkfinalproject.Utility.IonComplete;
+import com.example.tkfinalproject.Utility.UtilityClass;
 import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,20 +31,46 @@ public class MyFireBaseHelper {
     DatabaseReference reference;
     Context myContext;
     DataSnapshot  dataSnapshot;
+    UtilityClass utilityClass;
 
     public MyFireBaseHelper(Context context) {
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("Users");
-        myContext = context;
+        utilityClass = new UtilityClass(context);
+        try {
+            database = FirebaseDatabase.getInstance();
+            reference = database.getReference("Users");
+            myContext = context;
+        } catch (Exception e){
+            utilityClass.showAlertExp();
+        }
     }
-    public void addUser(User user){
-        reference.child(user.getUsername()).setValue(user);
+    public void addUser(User user,IonComplete ionComplete){
+        try {
+            reference.child(user.getUsername()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    ionComplete.onCompleteBool(task.isSuccessful());
+                }
+            });
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
+            ionComplete.onCompleteBool(false);
+        }
     }
-    public void update(User user){
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("username", user.getUsername());
-        updates.put("pass", user.getPass());
-        reference.child(user.getUsername()).updateChildren(updates);
+    public void update(User user,IonComplete ionComplete){
+        try {
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("username", user.getUsername());
+            updates.put("pass", user.getPass());
+            reference.child(user.getUsername()).updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    ionComplete.onCompleteBool(task.isSuccessful());
+                }
+            });
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
+            ionComplete.onCompleteBool(false);
+        }
     }
 
     public interface checkUser
@@ -50,56 +78,60 @@ public class MyFireBaseHelper {
         void onCheckedUser(boolean flag);
     }
     public void userNameExsIts(String username , checkUser checkUser){
-        reference.child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                dataSnapshot = task.getResult();
-                if (task.isSuccessful() && String.valueOf(dataSnapshot.child("username").getValue()).equals(username)){
-                    checkUser.onCheckedUser(true);
+        try {
+            reference.child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    dataSnapshot = task.getResult();
+                    checkUser.onCheckedUser(task.isSuccessful() && String.valueOf(dataSnapshot.child("username").getValue()).equals(username));
                 }
-                else {
-                    checkUser.onCheckedUser(false);
-                }
-            }
-        });
+            });
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
+            checkUser.onCheckedUser(false);
+        }
     }
     public void userExsits(User user,checkUser checkUser){
-        reference.child(user.getUsername()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                dataSnapshot = task.getResult();
-                if (task.isSuccessful() && String.valueOf(dataSnapshot.child("username").getValue()).equals(user.getUsername())){
-                    if (String.valueOf(dataSnapshot.child("pass").getValue()).equals(user.getPass())){
-                        checkUser.onCheckedUser(true);
+        try {
+            reference.child(user.getUsername()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    dataSnapshot = task.getResult();
+                    if (task.isSuccessful() && String.valueOf(dataSnapshot.child("username").getValue()).equals(user.getUsername())){
+                        checkUser.onCheckedUser(String.valueOf(dataSnapshot.child("pass").getValue()).equals(user.getPass()));
                     }
                     else {
                         checkUser.onCheckedUser(false);
                     }
-                }
-                else {
-                    checkUser.onCheckedUser(false);
-                }
 
-            }
-        });
+                }
+            });
+        } catch (Exception e) {
+            utilityClass.showAlertExp();
+            checkUser.onCheckedUser(false);
+        }
     }
     public void getUserByName(String username, IonComplete.IonCompleteUser user){
-        reference.child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                dataSnapshot = task.getResult();
-                if (task.isSuccessful()){
-                    userNameExsIts(username, new checkUser() {
-                        @Override
-                        public void onCheckedUser(boolean flag) {
-                            if(flag){
-                                user.onCompleteUser(new User(String.valueOf(dataSnapshot.child("username").getValue()),String.valueOf(dataSnapshot.child("pass").getValue())));
+        try {
+            reference.child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    dataSnapshot = task.getResult();
+                    if (task.isSuccessful()){
+                        userNameExsIts(username, new checkUser() {
+                            @Override
+                            public void onCheckedUser(boolean flag) {
+                                if(flag){
+                                    user.onCompleteUser(new User(String.valueOf(dataSnapshot.child("username").getValue()),String.valueOf(dataSnapshot.child("pass").getValue())));
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
-        });
+            });
+        } catch (Exception e){
+            utilityClass.showAlertExp();
+        }
     }
 
 //    public boolean userNameExist(String userName){

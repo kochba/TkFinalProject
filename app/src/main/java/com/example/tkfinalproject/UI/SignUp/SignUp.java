@@ -117,6 +117,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        btn.setEnabled(false);
         if (name.getText().length() < 8){
             //aletr קצר משמונה
             AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -225,5 +226,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
             }
         }
+        btn.setEnabled(true);
     }
 }

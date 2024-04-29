@@ -33,6 +33,8 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.fragment:fragment:1.6.2")
+    implementation ("com.opencsv:opencsv:5.5.2")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -42,4 +44,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.braintreepayments:card-form:5.4.0")
 }

@@ -51,8 +51,18 @@ public class Repostry {
             public void onCheckedUser(boolean flag) {
                 if (!flag){
                     if (myDatabaseHelper.AddUser(user)) {
-                        fireBaseHelper.addUser(user);
-                        ionCompleteInt.onCompleteInt(0);
+                        fireBaseHelper.addUser(user, new IonComplete() {
+                            @Override
+                            public void onCompleteBool(boolean flag) {
+                                if (flag){
+                                    ionCompleteInt.onCompleteInt(0);
+                                }
+                                else {
+                                    myDatabaseHelper.removeUser(user);
+                                    ionCompleteInt.onCompleteInt(1);
+                                }
+                            }
+                        });
                     }
                     else {
                         ionCompleteInt.onCompleteInt(1);
@@ -64,32 +74,33 @@ public class Repostry {
             }
         });
     }
-    public void Updateuser(User user , IonComplete.IonCompleteInt ionCompleteInt)  {
-        if (!user.getUsername().equals(getCurrentUser().getUsername())){
-            doesUserNameExisit(user.getUsername(), new MyFireBaseHelper.checkUser() {
-                @Override
-                public void onCheckedUser(boolean flag) {
-                    if (!flag){
-                        if (updatedata(user,1)) {
-                            ionCompleteInt.onCompleteInt(0);
-                        } else {
-                            ionCompleteInt.onCompleteInt(1);
-                        }
-                    }
-                    else {
-                        ionCompleteInt.onCompleteInt(2);
-                    }
-                }
-            });
-        }
-        else {
-            if (updatedata(user,2)) {
-                ionCompleteInt.onCompleteInt(0);
-            } else {
-                ionCompleteInt.onCompleteInt(1);
-            }
-        }
-    }
+//    public void Updateuser(User user , IonComplete.IonCompleteInt ionCompleteInt)  {
+//        if (!user.getUsername().equals(getCurrentUser().getUsername())){
+//            doesUserNameExisit(user.getUsername(), new MyFireBaseHelper.checkUser() {
+//                @Override
+//                public void onCheckedUser(boolean flag) {
+//                    if (!flag){
+//                        if (updatedata(user,1)) {
+//                            ionCompleteInt.onCompleteInt(0);
+//                        } else {
+//                            ionCompleteInt.onCompleteInt(1);
+//                        }
+//                    }
+//                    else {
+//                        ionCompleteInt.onCompleteInt(2);
+//                    }
+//                }
+//            });
+//        }
+//        else {
+//            updatedata(user,2,ionCompleteInt);
+////            if (updatedata(user,2,)) {
+////                ionCompleteInt.onCompleteInt(0);
+////            } else {
+////                ionCompleteInt.onCompleteInt(1);
+////            }
+//        }
+//    }
 //    public void Updateuser(User user , IonComplete.IonCompleteInt ionCompleteInt)  {
 //        if (!user.getUsername().equals(getCurrentUser().getUsername())){
 //            if (!doesUserNameExisit(user.getUsername())){
@@ -122,24 +133,34 @@ public class Repostry {
 ////            return 2;
 ////        }
 //    }
-    private boolean updatedata(User user, int code){
-        if (code == 1){
-            if (myDatabaseHelper.updateData(user,currentUser)){
-                fireBaseHelper.update(user);
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        else {
+    public void updatedata(User user, IonComplete.IonCompleteInt ionCompleteInt){
+//        if (code == 1){
+//            if (myDatabaseHelper.updateData(user,currentUser)){
+//                fireBaseHelper.update(user);
+//                return true;
+//            }
+//            else {
+//                return false;
+//            }
+//        }
+//        else {
             if (myDatabaseHelper.uptadePass(user)) {
-                fireBaseHelper.update(user);
-                return true;
+                fireBaseHelper.update(user, new IonComplete() {
+                    @Override
+                    public void onCompleteBool(boolean flag) {
+                        if (flag){
+                            ionCompleteInt.onCompleteInt(0);
+                        }
+                        else {
+                            myDatabaseHelper.uptadePass(currentUser);
+                            ionCompleteInt.onCompleteInt(1);
+                        }
+                    }
+                });
             } else {
-                return false;
+                ionCompleteInt.onCompleteInt(1);
             }
-        }
+        //}
     }
     public void doesUserNameExisit(String userName , com.example.tkfinalproject.RePostry.MyFireBaseHelper.checkUser checkUser){
         fireBaseHelper.userNameExsIts(userName, checkUser);

@@ -33,6 +33,7 @@
         />
     <EditText
         android:id="@+id/name"
+        android:fontFamily="@font/myfont"
         android:hint="לפחות 8 תווים"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
 
     <EditText
         android:hint="לפחות 6 תווים"
+        android:fontFamily="@font/myfont"
         android:id="@+id/passowrd"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
@@ -87,6 +89,7 @@
         />
     <EditText
         android:id="@+id/passowrdeq"
+        android:fontFamily="@font/myfont"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"

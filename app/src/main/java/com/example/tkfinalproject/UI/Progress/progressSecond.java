@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import com.example.tkfinalproject.R;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
+import com.example.tkfinalproject.UI.RefundActivity.Refund;
 
 public class progressSecond extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,6 +39,9 @@ public class progressSecond extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFinish() {
+                intent = new Intent(progressSecond.this, Refund.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 // Do something when the timer finishes (if needed)
 //                intent = new Intent(progressSecond.this,.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -36,6 +36,7 @@
             />
         <EditText
             android:id="@+id/usered"
+            android:fontFamily="@font/myfont"
             android:layout_width="325dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext"
@@ -61,6 +62,7 @@
             />
         <EditText
             android:id="@+id/passed"
+            android:fontFamily="@font/myfont"
             android:layout_width="325dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext"

@@ -69,13 +69,14 @@
 
         />
     <EditText
-        android:id="@+id/userup"
+        android:id="@+id/maxpriceed"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext"
         android:textSize="32sp"
         android:layout_gravity="center"
         android:gravity="center"
+        android:fontFamily="@font/myfont"
         android:maxLines="1"
         android:maxLength="15"
         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
@@ -103,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/myfont"
-                android:hint="בחר חברה" />
+                android:hint="בחר יצרן" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
