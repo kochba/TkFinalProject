@@ -62,7 +62,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
             long result = db.insert(TABLE_NAME, null, cv);
             return result != -1;
         } catch (Exception e) {
-                utilityClass.showAlertExp();
+            utilityClass.showAlertExp();
             return false;
         }
     }
@@ -72,14 +72,14 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_NAME + " WHERE " + COLUMN_UserName + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
-        String id = null;
+        str = null;
 
         try {
             if (db != null) {
                 cursor = db.rawQuery(query, new String[]{name});
                 if (cursor.moveToFirst()) {
                     int columnIndex = cursor.getColumnIndex(COLUMN_ID);
-                    id = cursor.getString(columnIndex);
+                    str = cursor.getString(columnIndex);
                 }
             }
         } catch (Exception e) {
@@ -90,14 +90,14 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
             }
         }
 
-        return id;
+        return str;
     }
 
     public boolean uptadePass(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_PassWord, user.getPass());
-        String str = idByName(user.getUsername());
+        str = idByName(user.getUsername());
 
         try {
             if (str != null) {
