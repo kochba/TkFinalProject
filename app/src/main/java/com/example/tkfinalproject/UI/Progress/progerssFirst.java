@@ -11,10 +11,11 @@ import android.widget.ProgressBar;
 
 import com.example.tkfinalproject.R;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
+import com.example.tkfinalproject.Utility.Phone;
 
 public class progerssFirst extends AppCompatActivity implements View.OnClickListener {
     ProgressBar progressBar;
-    private static final long TOTAL_TIME_MILLIS = 7000;
+    private static final long TOTAL_TIME_MILLIS = 1000;
     Intent intent;
     private CountDownTimer countDownTimer;
     Button btn;
@@ -40,6 +41,7 @@ public class progerssFirst extends AppCompatActivity implements View.OnClickList
                 // Do something when the timer finishes (if needed)
                 intent = new Intent(progerssFirst.this,progressSecond.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("price",getIntent().getSerializableExtra("price"));
                 startActivity(intent);
             }
         };

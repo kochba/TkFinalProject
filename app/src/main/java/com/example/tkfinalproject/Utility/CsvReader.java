@@ -165,4 +165,46 @@ public class CsvReader {
 
         return null;
     }
+    public String getpriceByCode(Context context, String selectedBrand, String selectedModel,String selectCapcity,int code) {
+
+        AssetManager assetManager = context.getAssets();
+        try {
+            InputStream inputStream = assetManager.open("tradeinprice.csv");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
+            CSVReader reader = new CSVReader(inputStreamReader);
+            String[] nextLine;
+            String[] prices = new String[4];
+
+            // Skip the header row
+            reader.readNext();
+
+            while ((nextLine = reader.readNext()) != null) {
+                if (nextLine.length >= 3) {
+                    String brand = nextLine[0].trim();
+                    String model = nextLine[1].trim();
+                    String capicty = nextLine[2].trim();
+                    prices[0] = nextLine[3].trim();
+                    prices[1] = nextLine[4].trim();
+                    prices[2] = nextLine[5].trim();
+                    prices[3] = nextLine[6].trim();
+
+
+                    if (brand.equalsIgnoreCase(selectedBrand) && model.equalsIgnoreCase(selectedModel) && capicty.equalsIgnoreCase(selectCapcity)) {
+                        reader.close();
+                        return prices[code-1];
+                    }
+                }
+            }
+
+            reader.close();
+        } catch (Exception e)
+        {
+            utilityClass.showAlertExp();
+//            e.printStackTrace();
+//            Log.e("CSVDataReader", "Error reading CSV file: " + e.getMessage());
+        }
+
+        return null;
+    }
 }

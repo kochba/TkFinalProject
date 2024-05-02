@@ -1,22 +1,21 @@
 package com.example.tkfinalproject.UI.SelectPhone;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.example.tkfinalproject.RePostry.Repostry;
+import com.example.tkfinalproject.Utility.CsvReader;
+import com.example.tkfinalproject.Utility.Phone;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.nio.Buffer;
+import java.util.Random;
 
 public class selectNewPhoneMoudle {
     Repostry repostry;
+    CsvReader csvReader;
+    Random random;
     String s1,s2;
     Context myContext;
     com.google.android.material.textfield.TextInputLayout inputModel,inputcapacity;
@@ -34,6 +33,8 @@ public class selectNewPhoneMoudle {
         this.autoCompleteCapacity = autoCompleteCapacity;
         this.btn = btn;
         this.editText = editText;
+        random = new Random();
+        csvReader = new CsvReader(context);
 //        autoCompleteModel.addTextChangedListener(new TextWatcher() {
 //            @Override
 //            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -71,6 +72,20 @@ public class selectNewPhoneMoudle {
                 editText.setText("");
                 btn.setEnabled(false);
             }
+        }
+    }
+
+    public Phone cratephoneobj() {
+        int rnd = random.nextInt(101) + 1;
+        String chooesdPhone = autoCompleteBrand.getText().toString() + " " + autoCompleteModel.getText().toString() + " " + autoCompleteCapacity.getText().toString();
+        if (rnd <= 15){
+          return new Phone(1,csvReader.getpriceByCode(myContext, autoCompleteBrand.getText().toString(),autoCompleteModel.getText().toString(),autoCompleteCapacity.getText().toString(),4),chooesdPhone);
+        } else if (rnd <= 45) {
+            return new Phone(2,csvReader.getpriceByCode(myContext, autoCompleteBrand.getText().toString(),autoCompleteModel.getText().toString(),autoCompleteCapacity.getText().toString(),3),chooesdPhone);
+        } else if (rnd <= 80) {
+            return new Phone(3,csvReader.getpriceByCode(myContext, autoCompleteBrand.getText().toString(),autoCompleteModel.getText().toString(),autoCompleteCapacity.getText().toString(),2),chooesdPhone);
+        } else {
+            return new Phone(4,csvReader.getpriceByCode(myContext, autoCompleteBrand.getText().toString(),autoCompleteModel.getText().toString(),autoCompleteCapacity.getText().toString(),1),chooesdPhone);
         }
     }
 //    public createphone(View v, com.google.android.material.textfield.TextInputLayout inputModel, com.google.android.material.textfield.TextInputLayout inputcapcity, AutoCompleteTextView autoCompleteBrand, AutoCompleteTextView autoCompleteModel, AutoCompleteTextView autoCompleteCapacity){

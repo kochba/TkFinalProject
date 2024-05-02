@@ -16,6 +16,7 @@ import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
 import com.example.tkfinalproject.UI.Login.login;
 import com.example.tkfinalproject.UI.SignUp.SignUp;
+import com.example.tkfinalproject.Utility.LocaleHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button log,sin;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         closeContextMenu();
+        LocaleHelper.setLocale(this, "iw");
         log = findViewById(R.id.login);
         sin = findViewById(R.id.signup);
         mainActivityModule = new MainActivityModule(this);

@@ -19,6 +19,7 @@ import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
 import com.example.tkfinalproject.UI.Login.login;
 import com.example.tkfinalproject.Utility.IonComplete;
+import com.example.tkfinalproject.Utility.LocaleHelper;
 
 public class UpdateUser extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,6 +35,7 @@ public class UpdateUser extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user);
+        //LocaleHelper.setLocale(this, "iw");
         editTextName = findViewById(R.id.userup);
         editTextPass = findViewById(R.id.passup);
         Update = findViewById(R.id.uptade);

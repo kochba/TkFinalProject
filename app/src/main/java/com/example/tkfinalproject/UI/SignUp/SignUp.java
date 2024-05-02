@@ -26,6 +26,7 @@ import com.example.tkfinalproject.RePostry.User;
 import com.example.tkfinalproject.UI.FirstPage.FirstPage;
 import com.example.tkfinalproject.UI.Login.login;
 import com.example.tkfinalproject.Utility.IonComplete;
+import com.example.tkfinalproject.Utility.LocaleHelper;
 import com.example.tkfinalproject.Utility.UtilityClass;
 
 import java.util.jar.Attributes;
@@ -47,6 +48,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        //LocaleHelper.setLocale(this, "iw");
         signUpModule = new SignUpModule(this);
         btn = findViewById(R.id.Submit);
         name = findViewById(R.id.name);

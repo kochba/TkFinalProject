@@ -21,13 +21,18 @@ import com.example.tkfinalproject.UI.LogOut.LogOut1;
 import com.example.tkfinalproject.UI.Progress.progerssFirst;
 import com.example.tkfinalproject.UI.UpdateUser.UpdateUser;
 import com.example.tkfinalproject.Utility.CsvReader;
+import com.example.tkfinalproject.Utility.LocaleHelper;
+import com.example.tkfinalproject.Utility.Phone;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class SelectNewPhone extends AppCompatActivity implements View.OnClickListener {
     com.google.android.material.textfield.TextInputLayout inputModel,inputcapacity;
     EditText ed1;
+    Random rnd;
+    Phone phone;
     private AutoCompleteTextView autoCompleteBrand, autoCompleteModel, autoCompleteCapacity;
     ImageView updateicon,logouticon;
     selectNewPhoneMoudle moudle;
@@ -61,6 +66,7 @@ public class SelectNewPhone extends AppCompatActivity implements View.OnClickLis
         btn = findViewById(R.id.confirmphone);
         updateicon = findViewById(R.id.updatepassnp);
         logouticon = findViewById(R.id.logouticonnp);
+        rnd = new Random();
         csvReader = new CsvReader(this);
         moudle = new selectNewPhoneMoudle(this,inputModel,inputcapacity,autoCompleteBrand,autoCompleteModel,autoCompleteCapacity,btn,ed1);
         btn.setOnClickListener(this);
@@ -205,6 +211,8 @@ public class SelectNewPhone extends AppCompatActivity implements View.OnClickLis
         }
         else {
             intent = new Intent(SelectNewPhone.this, progerssFirst.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("price",moudle.cratephoneobj());
             startActivity(intent);
         }
 //        } else if (btn == v) {

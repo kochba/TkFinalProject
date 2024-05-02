@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".UI.RefundActivity.Refund"
     android:background="#aaa"
+    android:layoutDirection="ltr"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="סכום זיכוי"
+            android:text="שווי זיכוי לאחר בדיקה"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/myfont"
@@ -32,7 +33,7 @@
 
             />
         <EditText
-            android:id="@+id/tradeinprice"
+            android:id="@+id/finalprice"
             android:layout_width="325dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext"
@@ -53,6 +54,7 @@
             android:background="@drawable/containrfragment"
             >
             <androidx.fragment.app.FragmentContainerView
+                android:layoutDirection="rtl"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:paddingBottom="10dp"
@@ -60,7 +62,7 @@
                 android:id="@+id/fragmentContainerView"
                 android:layout_gravity="center"
                 android:layout_width="375dp"
-                android:layout_height="375dp"
+                android:layout_height="wrap_content"
                 />
         </FrameLayout>
 
@@ -71,19 +73,18 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             >
-
             <Button
-                android:id="@+id/button"
+                android:id="@+id/creditbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_margin="5dp"
-                android:background="@drawable/button"
                 android:fontFamily="@font/myfont"
                 android:textSize="25dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="מזומן" />
+                android:background="@drawable/button"
+                android:text="אשראי" />
 
             <Button
                 android:id="@+id/button2"
@@ -99,17 +100,17 @@
                 android:text="ביטול" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:background="@drawable/button"
                 android:fontFamily="@font/myfont"
                 android:textSize="25dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:background="@drawable/button"
-                android:text="אשראי" />
+                android:text="מזומן" />
         </LinearLayout>
 
 
