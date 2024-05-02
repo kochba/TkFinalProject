@@ -2,17 +2,20 @@ package com.example.tkfinalproject.RePostry;
 
 import android.content.Context;
 
+import com.example.tkfinalproject.Utility.FireBaseService;
 import com.example.tkfinalproject.Utility.IonComplete;
 
 public class Repostry {
     MyDataBaseHelper myDatabaseHelper;
     MyFireBaseHelper fireBaseHelper;
     Context Mycontext;
+    FireBaseService service;
     private static User currentUser;
     public Repostry(Context context)
     {
         myDatabaseHelper = new MyDataBaseHelper(context);
         fireBaseHelper = new MyFireBaseHelper(context);
+        service = new FireBaseService(context);
         Mycontext = context;
         //database = FirebaseDatabase.getInstance();
         //reference = database.getReference("Users");
