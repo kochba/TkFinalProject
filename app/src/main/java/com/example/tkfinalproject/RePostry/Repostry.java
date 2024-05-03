@@ -1,15 +1,19 @@
 package com.example.tkfinalproject.RePostry;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.tkfinalproject.Utility.FireBaseService;
 import com.example.tkfinalproject.Utility.IonComplete;
+
+import java.io.Serializable;
 
 public class Repostry {
     MyDataBaseHelper myDatabaseHelper;
     MyFireBaseHelper fireBaseHelper;
     Context Mycontext;
     FireBaseService service;
+    Intent serviceIntent;
     private static User currentUser;
     public Repostry(Context context)
     {
@@ -54,18 +58,11 @@ public class Repostry {
             public void onCheckedUser(boolean flag) {
                 if (!flag){
                     if (myDatabaseHelper.AddUser(user)) {
-                        fireBaseHelper.addUser(user, new IonComplete() {
-                            @Override
-                            public void onCompleteBool(boolean flag) {
-                                if (flag){
-                                    ionCompleteInt.onCompleteInt(0);
-                                }
-                                else {
-                                    myDatabaseHelper.removeUser(user);
-                                    ionCompleteInt.onCompleteInt(1);
-                                }
-                            }
-                        });
+                        serviceIntent = new Intent(Mycontext, FireBaseService.class);
+                        serviceIntent.putExtra("code",1);
+                        serviceIntent.putExtra("user",user);
+                        serviceIntent.putExtra("ionCompleteInt", );
+                        Mycontext.startService(serviceIntent);
                     }
                     else {
                         ionCompleteInt.onCompleteInt(1);

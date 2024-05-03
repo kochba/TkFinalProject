@@ -2,7 +2,7 @@ package com.example.tkfinalproject.Utility;
 
 import com.example.tkfinalproject.RePostry.User;
 
-public interface IonComplete {
+public interface IonComplete{
 
     void onCompleteBool(boolean flag);
 

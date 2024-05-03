@@ -27,6 +27,7 @@ import com.example.tkfinalproject.UI.FirstPage.FirstPage;
 import com.example.tkfinalproject.UI.Login.login;
 import com.example.tkfinalproject.Utility.IonComplete;
 import com.example.tkfinalproject.Utility.LocaleHelper;
+import com.example.tkfinalproject.Utility.SaveIon;
 import com.example.tkfinalproject.Utility.UtilityClass;
 
 import java.util.jar.Attributes;
@@ -40,7 +41,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     Boolean PV = true;
     Boolean Pveq = true;
     SignUpModule signUpModule;
-
+    SaveIon saveIon;
     UtilityClass utilityClass;
     int x;
 
@@ -56,6 +57,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         eqpass = findViewById(R.id.passowrdeq);
         btn.setOnClickListener(this);
         utilityClass = new UtilityClass(this);
+        saveIon = new SaveIon();
         sp = getSharedPreferences("MyUserPerfs" , Context.MODE_PRIVATE);
         pass.setOnTouchListener(new View.OnTouchListener() {
             @Override

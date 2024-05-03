@@ -1,6 +1,8 @@
 package com.example.tkfinalproject.RePostry;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
      private String username;
      private String pass;
 
